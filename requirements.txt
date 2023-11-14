@@ -1,0 +1,11 @@
+pip==23.2.1
+setuptools==68.2.2
+wheel==0.41.2
+uvicorn==0.13.0
+fastapi==0.65.2
+python-dotenv==1.0.0
+grequests==0.7.0
+aiofiles==0.8.0
+Pillow==9.4.0
+pymongo==4.5.0
+python-socketio==5.6.0
