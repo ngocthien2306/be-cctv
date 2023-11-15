@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from src.services.report_service import group_by_day_all_of_module, group_by_day_camera_of_module
+from services.report_service import group_by_day_all_of_module, group_by_day_camera_of_module
 
 router = APIRouter(prefix="/report")
 

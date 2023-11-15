@@ -1,7 +1,7 @@
 import datetime
 
-from src.db.mongo_db import db_connect
-from src.utils import model
+from db.mongo_db import db_connect
+from utils import model
 
 def get_shift_by_timestamp(timestamp: int):
     datetime_obj = datetime.datetime.fromtimestamp(timestamp)

@@ -4,8 +4,8 @@ import xlsxwriter
 
 from bson.objectid import ObjectId
 
-from src.utils import model
-from src.db.mongo_db import db_connect
+from utils import model
+from db.mongo_db import db_connect
 
 def convert_objectid(record):
     record_id = str(record["_id"])

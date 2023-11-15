@@ -6,7 +6,7 @@ from fastapi.openapi.docs import (
     get_swagger_ui_oauth2_redirect_html,
 )
 
-from src.utils.project_config import BASE_DIR
+from utils.project_config import BASE_DIR
 
 def add_docs_router(app: FastAPI):
     app.mount("/static", StaticFiles(directory=BASE_DIR + r"/static"), name="static")

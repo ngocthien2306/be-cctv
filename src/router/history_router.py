@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 
-from src.utils import model
-from src.services.history_service import get_all, report_false, export_xlsx
+from utils import model
+from services.history_service import get_all, report_false, export_xlsx
 
 router = APIRouter(prefix="/history")
 

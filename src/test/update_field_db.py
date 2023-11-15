@@ -1,6 +1,6 @@
 import datetime
 from tqdm import tqdm
-from src.db.mongo_db import db_connect
+from db.mongo_db import db_connect
 from bson.objectid import ObjectId
 
 def get_shift_by_timestamp(timestamp: int):

@@ -1,4 +1,4 @@
-from src.db.mongo_db import db_connect
+from db.mongo_db import db_connect
 import datetime
 
 def fill(records):

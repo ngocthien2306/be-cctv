@@ -17,7 +17,11 @@ class ProjectConfig(BaseSettings):
     MESSAGE_QUEUE_URL: str = os.getenv("MESSAGE_QUEUE_URL", "10.17.70.10:9092")
     MESSAGE_QUEUE_USERNAME: str = os.getenv("MESSAGE_QUEUE_USERNAME", "admin")
     MESSAGE_QUEUE_PASSWORD: str = os.getenv("MESSAGE_QUEUE_PASSWORD", "admin-secret")
-
+    EVENT_LOGS_DOCUMENT: str = os.getenv("EVENT_LOGS_DOCUMENT")
+    CAMERA_DOCUMENT: str = os.getenv("CAMERA_DOCUMENT")
+    SERVER_DOCUMENT: str = os.getenv("SERVER_DOCUMENT")
+    DB_NAME: str = os.getenv("DB_NAME")
+    
 project_config = ProjectConfig()
 
 print(project_config)

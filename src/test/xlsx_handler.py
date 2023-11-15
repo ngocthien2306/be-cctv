@@ -3,7 +3,7 @@ import xlsxwriter
 import io
 
 from tqdm import tqdm
-from src.db.mongo_db import db_connect
+from db.mongo_db import db_connect
 
 # output = io.BytesIO()
 # workbook = Workbook(output, {'in_memory': True})

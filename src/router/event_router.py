@@ -1,8 +1,8 @@
 from fastapi import APIRouter
 
-from src.utils import model
-from src.utils.socket import socket_connection
-from src.services.event_service import write_log
+from utils import model
+from utils.socket import socket_connection
+from services.event_service import write_log
 
 router = APIRouter(prefix="/event")
 
