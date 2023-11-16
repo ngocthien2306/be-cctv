@@ -15,4 +15,56 @@ class Socket:
         return self.__asgi
 
 
+import time
+import socketio
+
+class SocketIOClient:
+    def __init__(self, server_url):
+        self.sio = socketio.Client()
+
+        # Define event handlers
+        self.sio.on("connect", self.handle_connect)
+        self.sio.on("message", self.handle_message)
+        self.sio.on("disconnect", self.handle_disconnect)
+
+        # Connect to the server
+        self.connect(server_url)
+
+    def connect(self, server_url):
+        try:
+            self.sio.connect(server_url)
+        except Exception as e:
+            print(f"Failed to connect to the server: {e}")
+            self.retry_connection()
+
+    def retry_connection(self):
+        # Retry the connection every 5 seconds
+        while not self.sio.connected:
+            print("Retrying connection in 5 seconds...")
+            time.sleep(5)
+            try:
+                self.sio.connect("http://127.0.0.1:5000")
+            except Exception as e:
+                print(f"Failed to connect to the server: {e}")
+
+    def handle_connect(self):
+        print("Connected to server")
+
+    def handle_message(self, data):
+        print(f"Message from server: {data}")
+
+    def handle_disconnect(self):
+        print("Disconnected from server")
+        self.retry_connection()
+
+    def send_message(self, message):
+        self.sio.send(message)
+
+    def send_alarm(self, data):
+        self.sio.send(data)
+    
+    def disconnect(self):
+        self.sio.disconnect()
+
+
 socket_connection = Socket()
