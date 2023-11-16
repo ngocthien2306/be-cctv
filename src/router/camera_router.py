@@ -110,5 +110,19 @@ async def update_camera(camera: Camera):
             status_code=400,
             detail=str(e)
         )
+        
+@router.put("/update-status", response_model=Reponse[CameraResponse])
+async def update_camera_status(camera: Camera): 
+    try:
+        result = camera_service.get_by_id(camera.camera_id)
+        result['camera_status'] = camera.camera_status
+        result = camera_service.update_camera(Camera(**result))
+        
+        return {"data": result}
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
 
 

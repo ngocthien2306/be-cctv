@@ -6,9 +6,9 @@ M = TypeVar("M", bound=BaseModel)
 
 
 class Server(BaseModel):
-    ip: str
-    server_id: str
-    server_name: str
+    ip: str = ''
+    server_id: str = ''
+    server_name: str = ''
     
 class Reponse(GenericModel, Generic[M]):
     data: M

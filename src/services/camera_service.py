@@ -36,7 +36,6 @@ class CameraService:
         return self._db_connect.find_one(query)
     
             
-        return self._db_connect.find_one(query)
     def add_camera(self, camera: Camera):
         if self.check_camera_id_exist(camera.camera_id):
             raise Exception("Camera ID already exists")
@@ -53,9 +52,6 @@ class CameraService:
     def update_camera(self, camera: Camera):
         if not self.check_camera_id_exist(camera.camera_id):
             raise Exception("Camera ID already exists")
-        
-        if self.check_rtsp_exist(camera.rtsp_link):
-            raise Exception("RTSP Link already exists")
         
         self._db_connect._collection.update_one({'camera_id': camera.camera_id}, {"$set": camera.dict()})
 

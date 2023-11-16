@@ -36,8 +36,29 @@ async def update_server(server: Server):
             status_code=400,
             detail=str(e)
         )
-          
+
+@router.put("/update-ip", response_model=Reponse[Server])
+async def update_ip(model: Server):
+    try:
+        server = server_service.get_by_server_name(model.server_name)
+        if server is not None:
+            server['ip'] = model.ip
+            del server['_id']
+            
+            server = server_service.update_server(Server(**server))
+            return {"data": server}
+        else:
+            raise HTTPException(
+                status_code=400,
+                detail='Server ID not exist'
+            )
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
         
+       
 @router.delete("/{server_id}", response_model=Reponse[object])
 async def delete_server(server_id: str):
     try:

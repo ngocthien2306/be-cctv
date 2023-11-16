@@ -35,9 +35,9 @@ class ReportEvent(BaseModel):
     
 
 class Camera(BaseModel):
-    rtsp_link: str
-    camera_id: str
-    camera_name: str
+    rtsp_link: str = ""
+    camera_id: str = ""
+    camera_name: str = ""
     camera_location: str = ""
     frame_rate: int = 6
     output_width: int = 1280
