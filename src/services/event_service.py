@@ -18,3 +18,11 @@ def write_log(event: model.Event):
         **event.dict(), shift = shift
     )
     db_connect.insert_one(event_log.dict())
+    
+def write_video_log(event: model.EventVideo):
+    shift = get_shift_by_timestamp(event.timestamp)
+    event_log = model.EvenVideotLog(
+        **event.dict(), shift = shift
+    )
+    db_connect.insert_one(event_log.dict())
+    return event_log

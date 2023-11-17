@@ -12,6 +12,20 @@ class Event(BaseModel):
     image_uri: str
     msgType: int
 
+
+class EventVideo(BaseModel):
+    camera_id: str
+    module_id: str
+    timestamp: int
+    video_uri: str
+    msgType: int
+    dns: str
+    
+class EvenVideotLog(EventVideo):
+    set_false: bool = False
+    line: int = 2
+    shift: int = 1
+
 class EventLog(Event):
     set_false: bool = False
     line: int = 2

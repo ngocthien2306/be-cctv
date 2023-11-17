@@ -13,6 +13,7 @@ async def get_camera(server_name: str=None):
     records = camera_service.get_camera_by_server(server['server_id'])
     
     if server is not None:
+        
         server['cameras'] = records if records is not None else []
         del server['_id']
         return {
@@ -31,7 +32,12 @@ async def get_all_camera():
 
     if servers is not None:
         for server in servers:
+            
             cameras = camera_service.get_camera_by_server(server['server_id'])
+            path = "http://{0}:8005/stream-manage/output/motion-detections-{1}"
+            for camera in cameras:
+                camera['stream_url'] = path.format(server['ip'], camera['camera_id'])
+            
             server['cameras'] = cameras if cameras is not None else []
             del server['id']
             

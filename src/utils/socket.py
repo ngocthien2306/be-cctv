@@ -8,6 +8,7 @@ class Socket:
         self.__asgi = socketio.ASGIApp(self.__sio)
 
     async def send_data(self, channel: str, data: dict):
+        print(data)
         await self.__sio.emit(channel, data)
         return
 
@@ -26,7 +27,7 @@ class SocketIOClient:
         self.sio.on("connect", self.handle_connect)
         self.sio.on("message", self.handle_message)
         self.sio.on("disconnect", self.handle_disconnect)
-
+        self._server_url = server_url
         # Connect to the server
         self.connect(server_url)
 
@@ -43,7 +44,7 @@ class SocketIOClient:
             print("Retrying connection in 5 seconds...")
             time.sleep(5)
             try:
-                self.sio.connect("http://127.0.0.1:5000")
+                self.sio.connect(self._server_url)
             except Exception as e:
                 print(f"Failed to connect to the server: {e}")
 

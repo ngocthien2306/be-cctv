@@ -94,7 +94,7 @@ async def report_camera(model: RequestReport):
             detail='Server is not existed'
         )  
         
-        return {"data": {}}
+        return {"detail": 'Send alarm successfull', 'status_code': 200}
     
     except Exception as e:
         raise HTTPException(
