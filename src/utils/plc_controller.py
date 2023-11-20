@@ -72,6 +72,7 @@ class PLCController(PLCControllerBase):
             if client.open():
                 # Ghi giá trị boolean xuống PLC
                 result = client.read_coils(modbus_address, 1)
+                print(result)
                 if result is not None and len(result) > 0:
                     return result[0]
                 else:
@@ -152,7 +153,7 @@ if __name__ == "__main__":
             plc_address=1,
             modbus_address=8197
     )
-    plc = PLCReader(plc_controller_config)
-    plc.start()
+    
+
     time.sleep(2)
     print(plc.get_value())

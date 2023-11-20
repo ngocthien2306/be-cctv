@@ -41,4 +41,4 @@ app.include_router(camera_router.router, tags=["Camera"])
 app.include_router(server_router.router, tags=["Server"])
 
 if __name__ == '__main__':
-    uvicorn.run(app, host="26.30.0.242", port=project_config.BE_PORT)
+    uvicorn.run(app, host="192.168.1.176", port=project_config.BE_PORT)
