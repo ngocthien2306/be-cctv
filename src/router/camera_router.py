@@ -51,6 +51,8 @@ async def get_all_camera():
             "data": {},
             "msg": "fail"
         } 
+        
+        
 
 @router.post("", response_model=Reponse[CameraResponse])
 async def add_camera_api(camera: Camera): 
@@ -117,6 +119,28 @@ async def update_camera(camera: Camera):
             detail=str(e)
         )
         
+@router.put("/update-date", response_model=Reponse[CameraResponse])
+async def update_camera_date(model: RangeDate):
+    try:
+        result = camera_service.get_by_id(model.camera_id)  
+        if result is None: 
+            raise HTTPException(
+            status_code=400,
+            detail='Camera ID does not existed'
+        )
+        print(result)
+        result['start_time'] = model.start_time
+        result['end_time'] = model.end_time
+        result = camera_service.update_camera(Camera(**result))
+        
+        return {"data": result}
+    except Exception as e:
+        raise HTTPException(
+            status_code=400,
+            detail=str(e)
+        )
+
+   
 @router.put("/update-status", response_model=Reponse[CameraResponse])
 async def update_camera_status(camera: Camera): 
     try:

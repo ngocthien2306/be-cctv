@@ -1,6 +1,7 @@
 from typing import Generic, TypeVar, List
 from pydantic import BaseModel
 from pydantic.generics import GenericModel
+from datetime import datetime
 
 M = TypeVar("M", bound=BaseModel)
 
@@ -48,6 +49,25 @@ class ReportEvent(BaseModel):
     id: str
     
 
+
+class RangeDate(BaseModel):
+    start_time: float = datetime.timestamp(datetime.now())
+    end_time: float = datetime.timestamp(datetime.now())
+    camera_id: str = ""
+    
+    
+class PLCDevice(BaseModel):
+    device_name: str = ''
+    address: str = ''
+    var: int = 0
+    slave: str = ''
+    master: str = ''
+
+class PLCModel(BaseModel):
+    ip: str = ""
+    device: List[PLCDevice] = []
+    station: str = ""
+
 class Camera(BaseModel):
     rtsp_link: str = ""
     camera_id: str = ""
@@ -58,6 +78,9 @@ class Camera(BaseModel):
     output_height: int = 720
     server_id: str = "" 
     camera_status: str = "INIT"
+    start_time: float = datetime.timestamp(datetime.now())
+    end_time: float = datetime.timestamp(datetime.now())
+    plc: PLCModel = None
     
 class CameraInfo(BaseModel):
     camera_ip: str

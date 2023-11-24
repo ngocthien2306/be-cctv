@@ -2,7 +2,7 @@ from fastapi import APIRouter
 from fastapi.responses import StreamingResponse
 
 from utils import model
-from services.history_service import get_all, report_false, export_xlsx
+from services.history_service import get_all, report_false, export_xlsx, count_report
 
 router = APIRouter(prefix="/history")
 
@@ -24,6 +24,17 @@ async def get_history(page: int = 0, size: int = 10, module_id: str = None, came
         "total_records": count,
         "msg": "success"
     }
+
+@router.get("/violate-count")
+async def get_violate_count():
+    result, count = count_report()
+    print(result)
+    return {
+        "data": list(result),
+        "total_records": count,
+        "msg": "success"
+    }
+    
 
 @router.get("/export")
 async def get_history(page: int = 0, size: int = 10, module_id: str = None, camera_id: str = None, shift: int = None, line: int = None, start_timestamp: int = 0, end_timestamp = 0):

@@ -28,6 +28,11 @@ class CameraService:
         converted_records = list(map(self.convert_objectid, list(cursor)))
         return converted_records
     
+    def get_all_camera(self):
+        cursor = self._db_connect._collection.find()
+        converted_records = list(map(self.convert_objectid, list(cursor)))
+        return converted_records
+    
     def get_by_id(self, camera_id: str):
         query = {}
         if camera_id is not None:

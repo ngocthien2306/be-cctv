@@ -43,6 +43,37 @@ def get_all(filter: model.Filter):
     records = cursor.skip(skips).limit(filter.size)
     return map(convert_objectid, records), count
 
+def count_report():
+    collection = db_connect.get_collection('cameras')
+    distinct_camera_ids = collection.distinct("camera_id")
+    
+    collection = db_connect.get_collection('event_logs')
+    count = collection.count_documents({})
+
+    # Group by camera_id and count the occurrences
+    pipeline = [
+        {
+            "$group": {
+                "_id": "$camera_id",  # Group by the value of camera_id
+                "count": {"$sum": 1}  # Count the occurrences for each camera_id
+            }
+        },
+        {
+            "$project": {
+                "camera_id": "$_id",  # Include camera_id in the result
+                "count": 1,           # Include the count in the result
+                "_id": 0              # Exclude the _id field from the result
+            }
+        }
+    ]
+
+    result = list(collection.aggregate(pipeline))
+    
+    final_result = [{"count": next((item["count"] for item in result if item["camera_id"] == camera_id), 0),
+                    "camera_id": camera_id} for camera_id in distinct_camera_ids]
+
+    return final_result, count
+
 def report_false(id: str):
     collection = db_connect.get_collection()
     collection.update_one({"_id": ObjectId(id)}, {"$set": { "set_false": True }})

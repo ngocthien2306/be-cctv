@@ -20,7 +20,7 @@ import time
 import socketio
 
 class SocketIOClient:
-    def __init__(self, server_url):
+    def __init__(self, server_url, attemp=5):
         self.sio = socketio.Client()
 
         # Define event handlers
@@ -28,6 +28,7 @@ class SocketIOClient:
         self.sio.on("message", self.handle_message)
         self.sio.on("disconnect", self.handle_disconnect)
         self._server_url = server_url
+        self._attemp = attemp
         # Connect to the server
         self.connect(server_url)
 
@@ -40,13 +41,14 @@ class SocketIOClient:
 
     def retry_connection(self):
         # Retry the connection every 5 seconds
-        while not self.sio.connected:
+        while not self.sio.connected and self._attemp > 0:
             print("Retrying connection in 5 seconds...")
             time.sleep(5)
             try:
                 self.sio.connect(self._server_url)
             except Exception as e:
                 print(f"Failed to connect to the server: {e}")
+                self._attemp -= 1
 
     def handle_connect(self):
         print("Connected to server")
